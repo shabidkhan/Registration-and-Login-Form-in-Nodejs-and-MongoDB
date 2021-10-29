@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+// creating Schema
 const userSchema = mongoose.Schema(
     {
         name: {
@@ -22,7 +23,6 @@ const userSchema = mongoose.Schema(
     }
 )
 console.log("collection");
-// users - { name, email (unique), mobile, password(hashed) }
 
 
 module.exports = mongoose.model("Users",userSchema)

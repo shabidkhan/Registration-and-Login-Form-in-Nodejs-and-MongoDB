@@ -11,21 +11,23 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-
+// for the the render the singup page 
 router.get("/signup",(req,res)=>{
   res.render("signup",{message:""})
 });
 
+
+// insert the data database after checking it.
 router.post("/signup",(req,res)=>{
   const{name,email,password,mobile}  = req.body
-  var hash = bcrypt.hashSync(password, 8);
+  var hash = bcrypt.hashSync(password, 8);//hashing password 
   var data = {
     name,
     email,
     mobile,
     password:hash,
   }
-  // res.send(data)
+
   if(!(email && password && name && mobile)){
     res.render("signup",{message:"Please fill the form properly"})
   }
@@ -40,10 +42,14 @@ router.post("/signup",(req,res)=>{
   })
 });
 
+
+// rendering the login page
 router.get("/login",(req,res)=>{
   res.render("index",{message:""})
 });
 
+
+// checking the login details  and after that genearting the token
 router.post('/login',async(req,res)=>{
   const {email,password} = req.body
   if(!(email && password)){
@@ -51,11 +57,10 @@ router.post('/login',async(req,res)=>{
   }
   userdb.find({email:email})
   .then((userData) => {
-    // console.log("dwewfser",userData);
     if (userData!==[]){
       if (bcrypt.compareSync(password, userData[0].password)){
         console.log(true);
-        var token = generateToken({id:userData[0]._id,name:userData[0].name})
+        var token = generateToken({id:userData[0]._id,name:userData[0].name})// token genearate
         console.log("login")
         res.cookie('token', token)
         res.redirect("/home")
@@ -63,7 +68,6 @@ router.post('/login',async(req,res)=>{
       } // true , password check
       else{
         console.log("password incorrect");
-        // res.send({message:"password incorrect"})
         res.render("index",{message:"password incorrect"})
       }
     }else{
@@ -76,37 +80,9 @@ router.post('/login',async(req,res)=>{
   });
 });
 
-// router.delete("/delete",authenticateToken,(req,res)=>{
-//   console.log(req.userDetail.id);
-//   userdb.remove({_id:req.userDetail.id})
-//   .then((result) => {
-//     console.log("deleted");
-//     res.send("Deleted");
-//   }).catch((err) => {
-//     console.log(err);
-//     res.send("err");
-//   });
-// });
-
-
-// router.put("/editUser",authenticateToken,(req,res)=>{
-//   console.log(req.userDetail.id);
-
-//   userdb.updateMany({_id:req.userDetail.id},req.body)
-//   .then((result) => {
-//     console.log(result);
-//     res.send(result);
-//   }).catch((err) => {
-//     console.log(err);
-//     res.send(err);
-//   });
-// });
-
-
+// Logout route  
 router.get('/logout', function(req, res){
   cookie = req.cookies;
-  
-
   for (var prop in cookie) {
       if (!cookie.hasOwnProperty(prop)) {
           continue;
@@ -114,7 +90,6 @@ router.get('/logout', function(req, res){
       res.cookie(prop, '', {expires: new Date(0)});
   }
   res.redirect('/users/login');
-// res.send("logout")
 });
 
 

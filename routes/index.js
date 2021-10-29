@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
   res.redirect("/home")
 });
 
+// this is our home which executed after the autentication
 router.get("/home",authenticateToken,(req,res)=>{
   res.render("home",{message:req.userDetail.name})
 })
