@@ -27,7 +27,7 @@ router.post("/signup",(req,res)=>{
   }
   // res.send(data)
   if(!(email && password && name && mobile)){
-    res.render("index",{message:"Please fill the form properly"})
+    res.render("signup",{message:"Please fill the form properly"})
   }
   userdb.insertMany(data)
   .then(data=>{
