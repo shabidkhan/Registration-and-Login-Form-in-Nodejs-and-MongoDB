@@ -1,0 +1,31 @@
+.bgc{
+    background-image: url('../images/grid2.svg');
+ }
+form{
+    /* padding-top: 20rem; */
+    margin-top: 10rem;
+}
+label   {
+    color: white;
+}
+
+body {
+    background-image: url('https://p4.wallpaperbetter.com/wallpaper/460/741/251/aero-background-wallpaper-preview.jpg');
+    background-repeat: no-repeat;
+    height: 100vh;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+.headtext{
+    text-align: center;
+    color: azure;
+}
+
+.hometext{
+    text-align: center;
+    color: rgb(8, 20, 36);
+    margin-top: 25rem;
+
+}
